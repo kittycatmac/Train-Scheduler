@@ -29,6 +29,25 @@ var config = {
       var trainDest = $("#destination-input").val().trim();
       var trainTime = $("#train-time-input").val().trim();
       var trainFreq = $("#frequency-input").val().trim();
+      
+      //first time
+      var firstTimeConverted = moment(trainTime, "HH:mm").subtract(1, "years");
+
+      //current time
+      var currentTime = moment(currentTime.format("hh:mm"));
+
+      //diff between times
+      var diffTime = moment().dif(moment(firstTimeConverted), "minutes");
+
+      //remainder for time apart
+      var tRemainder = diffTime % trainFreq;
+
+      //minutes till train arrives
+      var tMinutesTillTrain = trainFreq - tRemainder;
+        
+      //next time for train
+      var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+      var trainAway = moment(nextTrain).format("hh:mm");
 
       //local temp object for train data
       var newTrain = {
@@ -36,6 +55,7 @@ var config = {
           dest: trainDest,
           time: trainTime,
           freq: trainFreq,
+          away: trainAway,
       };
 
       //pushing to database
@@ -58,15 +78,17 @@ var config = {
         var trainDest = childSnapshot.val().dest;
         var trainTime = childSnapshot.val().time;
         var trainFreq = childSnapshot.val().freq;
+        var trainAway = childSnapshot.val().away;
         
         //it would be cool to find a conversion of regular time to military time
         //calculate the minutes for how many minutes the train is away
         //create new row
         var newRow = $("<tr>").append(
             $("<td>").text(trainName),
-            $("<tr>").text(trainDest),
-            $("<tr>").text(trainTime),
-            $("<tr>").text(trainFreq),
+            $("<td>").text(trainDest),
+            $("<td>").text(trainTime),
+            $("<td>").text(trainFreq),
+            $("<td>").text(trainAway),
         );
 
         //append the new row
