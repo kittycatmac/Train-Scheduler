@@ -34,10 +34,10 @@ var config = {
       var firstTimeConverted = moment(trainTime, "HH:mm").subtract(1, "years");
 
       //current time
-      var currentTime = moment(currentTime.format("hh:mm"));
+      var currentTime = moment(currentTime).format("hh:mm");
 
       //diff between times
-      var diffTime = moment().dif(moment(firstTimeConverted), "minutes");
+      var diffTime = moment(currentTime).diff(moment(firstTimeConverted), "minutes");
 
       //remainder for time apart
       var tRemainder = diffTime % trainFreq;
