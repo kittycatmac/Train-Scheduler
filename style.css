@@ -16,3 +16,8 @@ h1 {
 b {
     font-size: 20px;
 }
+
+#removeBtn {
+    background-color: rgb(133, 110, 151);
+    color: cornsilk;
+}

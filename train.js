@@ -80,8 +80,6 @@ var config = {
         var trainAway = childSnapshot.val().time;
         var tillTrain = childSnapshot.val().away;
         
-        //it would be cool to find a conversion of regular time to military time
-        //calculate the minutes for how many minutes the train is away
         //create new row
         var newRow = $("<tr>").append(
             $("<td>").text(trainName),
@@ -89,8 +87,15 @@ var config = {
             $("<td>").text(trainFreq),
             $("<td>").text(trainAway),
             $("<td>").text(tillTrain),
+            $("<td>").append("<button id='removeBtn'>remove</button>"),
         );
 
         //append the new row
         $("#train-table > tbody").append(newRow);
+
+        //remove row
+        $("#removeBtn").on("click", function(event) {
+            event.preventDefault();
+            $(newRow).remove();
+        })
     });
