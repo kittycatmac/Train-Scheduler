@@ -94,8 +94,8 @@ var config = {
         $("#train-table > tbody").append(newRow);
 
         //remove row
-        $("#removeBtn").on("click", function(event) {
-            event.preventDefault();
-            $(newRow).remove();
+        $(document).on("click", "#removeBtn", function() {
+            this.closest("tr").remove();
         })
+    
     });
